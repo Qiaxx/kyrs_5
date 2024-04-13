@@ -8,7 +8,7 @@ class HHApi:
         """
         pass
 
-    def get_vacancies(self, company_id):
+    def get_vacancies(self, company_id: str) -> list or None:
         """
         Метод получения вакансий по идентификатору компании
         :param company_id: идентификатор компании

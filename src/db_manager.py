@@ -1,8 +1,10 @@
+from typing import Any
+
 import psycopg2
 
 
 class DBManager:
-    def __init__(self, db_con):
+    def __init__(self, db_con: dict) -> None:
         """
         Инициализатор конструктора БД
         :param db_con: параметры для подключения к БД
@@ -10,7 +12,7 @@ class DBManager:
         self.conn = psycopg2.connect(**db_con)
         self.cur = self.conn.cursor()
 
-    def create_tables(self):
+    def create_tables(self) -> None:
         """
         Метод создания таблиц companies и vacancies
         :return: ничего
@@ -35,7 +37,7 @@ class DBManager:
         self.cur.execute(create_vacancies_table)
         self.conn.commit()
 
-    def insert_data(self, data):
+    def insert_data(self, data: dict) -> None:
         """
         Метод добавления в таблицы данных
         :param data: json файл с вакансиями компании
@@ -64,7 +66,7 @@ class DBManager:
 
         self.conn.commit()
 
-    def get_companies_and_vacancies_count(self):
+    def get_companies_and_vacancies_count(self) -> list[tuple[Any, ...]]:
         """
         Метод получения названия компании и количества их вакансий
         :return: список названий компаний и их коичества вакансий
@@ -75,7 +77,7 @@ class DBManager:
         self.cur.execute(query)
         return self.cur.fetchall()
 
-    def get_all_vacancies(self):
+    def get_all_vacancies(self) -> list[tuple[Any, ...]]:
         """
         Метод получения всех вакансий
         :return: список всех вакансий
@@ -88,7 +90,7 @@ class DBManager:
         self.cur.execute(query)
         return self.cur.fetchall()
 
-    def get_avg_salary(self):
+    def get_avg_salary(self) -> None:
         """
         Метод получения средней зарплаты по вакансиям
         :return: среднюю зарплату
@@ -99,7 +101,7 @@ class DBManager:
         self.cur.execute(query)
         return self.cur.fetchone()[0]
 
-    def get_vacancies_with_higher_salary(self):
+    def get_vacancies_with_higher_salary(self) -> list[tuple[Any, ...]]:
         """
         Метод получения вакансии с самой высокой зарплатой
         :return: полное описание вакансии с самой высокой зарплатой
@@ -114,7 +116,7 @@ class DBManager:
         self.cur.execute(query, (avg_salary,))
         return self.cur.fetchall()
 
-    def get_vacancies_with_keyword(self, keyword):
+    def get_vacancies_with_keyword(self, keyword) -> list[tuple[Any, ...]]:
         """
         Метод получения вакансий по ключевому слову
         :param keyword: ключевое слово
