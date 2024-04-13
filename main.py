@@ -3,7 +3,12 @@ from src.db_manager import DBManager
 from src.hh_api import HHApi
 
 
-def main(company_id=None):
+def main():
+    """
+    Главный функционал по поиску и заполнению вакансиями БД
+    :return: ничего
+    """
+
     # Параметры подключения к БД
     my_db = config('src/database.ini')
 
@@ -14,7 +19,8 @@ def main(company_id=None):
     db_manager.create_tables()
 
     # Получение данных о компаниях и вакансиях
-    companies = ["9498120", "9608107", "6146301", "1470975", "3870258", "3123738", "1060821", "10941115", "10530948", "10853846"]  # Замените на реальные идентификаторы компаний
+    companies = ["9498120", "9608107", "6146301", "1470975", "3870258", "3123738", "1060821", "10941115", "10530948",
+                 "10853846"]
     for company_id in companies:
         vacancies = hh_api.get_vacancies(company_id)
         if vacancies:

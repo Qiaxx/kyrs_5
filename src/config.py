@@ -1,7 +1,13 @@
 from configparser import ConfigParser
 
 
-def config(filename="database.ini", section="postgresql"):
+def config(filename="database.ini", section="postgresql") -> dict:
+    """
+    Функция для получения параметров для подключения к БД
+    :param filename: название файла (по умолчанию database.ini)
+    :param section: позиция, под которой ищет параметры для подключения (по умолчанию postgresql)
+    :return: переменную db с параметрами (dbname=dbname, host=host, user=user, password=password, port=port)
+    """
     # create a parser
     parser = ConfigParser()
     # read config file
